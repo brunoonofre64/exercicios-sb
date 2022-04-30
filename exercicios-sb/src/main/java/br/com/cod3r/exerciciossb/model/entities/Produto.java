@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Produto {
@@ -12,19 +15,23 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private double preco;
-	private double desconto;
+	@NotBlank
+	private String nome;
 
-	private String name;
+	@Min(0)
+	private double preco;
+	
+	@Min(0)
+	@Max(1)
+	private double desconto;
 
 	public Produto() {
 	}
 
-	public Produto(String name, double preco, double desconto) {
-		super();
-		this.name = name;
+	public Produto(double preco, double desconto, String nome) {
 		this.preco = preco;
 		this.desconto = desconto;
+		this.nome = nome;
 	}
 
 	public int getId() {
@@ -52,11 +59,11 @@ public class Produto {
 	}
 
 	public String getName() {
-		return name;
+		return nome;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.nome = name;
 	}
 
 }
